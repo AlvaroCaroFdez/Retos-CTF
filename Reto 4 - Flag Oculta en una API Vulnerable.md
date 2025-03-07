@@ -3,11 +3,6 @@
 
 ---
 
-#### **Explicación para Documento de Google**
-
-
----
-
 #### **Implementación Paso a Paso**
 
 1. Crear una API simulada utilizando Flask:
