@@ -1,4 +1,4 @@
-### **Reto 2: Flag Oculta en el Contenido de un PDF**  
+### **Reto 1: Flag Oculta en el Contenido de un PDF**  
 **Tema principal**: Criptografía + Manipulación de Archivos.
 
 ---
