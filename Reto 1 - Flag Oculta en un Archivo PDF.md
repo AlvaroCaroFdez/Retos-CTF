@@ -1,25 +1,33 @@
-### **Reto 1: Flag Oculta en un Archivo PDF**  
-**Tema principal**: Análisis Forense + Manipulación de Archivos.
+### **Reto 2: Flag Oculta en el Contenido de un PDF**  
+**Tema principal**: Criptografía + Manipulación de Archivos.
 
 ---
 
 #### **Implementación Paso a Paso**
 
-1. Crear un archivo PDF con texto genérico:
-   ```bash
-   echo "Este es un documento genérico para el reto CTF." > documento.txt
-   pandoc documento.txt -o reto.pdf
+1. Crear un archivo PDF con un párrafo donde la primera letra de cada línea forme la flag:  
+   Por ejemplo, si la flag es `Flag{Texto_Oculto}`, el contenido del texto podría ser:  
+   ```
+   Frente a ti está el desafío.
+   Lee con atención cada línea.
+   Aquí está todo lo que necesitas.
+   Gana descifrando el mensaje oculto.
    ```
 
-2. Insertar la flag en los metadatos del archivo:
+   Generar el archivo `.txt` y convertirlo a PDF:
    ```bash
-   exiftool -Author="Flag{PDF_Metadatos}" reto.pdf
+   echo -e "Frente a ti está el desafío.\nLee con atención cada línea.\nAquí está todo lo que necesitas.\nGana descifrando el mensaje oculto." > texto.txt
+   pandoc texto.txt -o reto.pdf
    ```
 
-3. Verificar que la flag esté correctamente oculta:
-   ```bash
-   exiftool reto.pdf
-   ```
+2. Verificar que las primeras letras de cada línea formen correctamente la flag deseada (`Flag{Texto_Oculto}`) al abrir el archivo PDF.
+
+3. Opcionalmente, añadir distracciones o pistas falsas:  
+   - Agregar texto adicional irrelevante al documento.  
+   - Incluir metadatos falsos para despistar:
+     ```bash
+     exiftool -Author="No hay nada aquí" reto.pdf
+     ```
 
 4. Entregar el archivo `reto.pdf` al jugador como parte del desafío.
 
@@ -27,24 +35,17 @@
 
 #### **Cómo lo resolverían los jugadores**
 
-1. Analizar los metadatos del archivo utilizando `exiftool`:
-   ```bash
-   exiftool reto.pdf
-   ```
-
-2. Buscar entre los campos de metadatos hasta encontrar el campo `Author` con la flag:  
-   ```
-   Author: Flag{PDF_Metadatos}
-   ```
-
-3. Extraer la flag y enviarla como solución.
+1. Abrir y leer cuidadosamente el contenido del archivo PDF.  
+2. Identificar que las primeras letras de cada línea forman un mensaje coherente (la flag).  
+3. Extraer la flag (en este caso, `Flag{Texto_Oculto}`) y enviarla como solución.
 
 ---
 
 #### **Variantes para aumentar la dificultad**
 
-- Encriptar el archivo PDF con una contraseña y proporcionar pistas sobre cómo descifrarlo:
+- **Formato engañoso**: Cambiar el estilo del texto (por ejemplo, justificarlo o usar saltos de línea invisibles) para dificultar identificar las primeras letras.  
+- **Encriptar el PDF con una contraseña** y proporcionar pistas para descifrarlo:
   ```bash
-  qpdf --encrypt contraseña123 contraseña123 40 -- reto.pdf reto_encriptado.pdf
+  qpdf --encrypt clave123 clave123 40 -- reto.pdf reto_encriptado.pdf
   ```
-- Incrustar la flag dentro de un objeto oculto en el PDF, como una imagen invisible o un enlace.
+- **Ocultar pistas adicionales**: Incluir imágenes o enlaces invisibles en el PDF que distraigan al jugador.  
